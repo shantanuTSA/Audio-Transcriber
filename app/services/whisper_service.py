@@ -1,15 +1,22 @@
 import whisper
-from app.services.chunking_service import split_audio
 
-model = whisper.load_model("base")
+model = whisper.load_model("tiny")  # use tiny for deployment
+
 
 def transcribe_audio(file_path):
-    chunks = split_audio(file_path)
+    result = model.transcribe(file_path)
 
-    full_text = ""
+    segments = result.get("segments", [])
 
-    for chunk in chunks:
-        result = model.transcribe(chunk)
-        full_text += result["text"] + " "
+    processed_segments = []
 
-    return full_text.strip()
+    for seg in segments:
+        text = seg["text"]
+        confidence = seg.get("avg_logprob", -1)
+
+        processed_segments.append({
+            "text": text,
+            "confidence": confidence
+        })
+
+    return processed_segments
