@@ -1,22 +1,22 @@
 import whisper
+import streamlit as st
 
-model = whisper.load_model("tiny")  # use tiny for deployment
-
+@st.cache_resource
+def load_model():
+    return whisper.load_model("tiny")
 
 def transcribe_audio(file_path):
+    model = load_model()  # lazy load
+
     result = model.transcribe(file_path)
 
     segments = result.get("segments", [])
 
-    processed_segments = []
-
+    processed = []
     for seg in segments:
-        text = seg["text"]
-        confidence = seg.get("avg_logprob", -1)
-
-        processed_segments.append({
-            "text": text,
-            "confidence": confidence
+        processed.append({
+            "text": seg["text"],
+            "confidence": seg.get("avg_logprob", -1)
         })
 
-    return processed_segments
+    return processed
