@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+env/
+
+# Data folders (optional)
+data/uploads/
+data/processed/
+data/history/
+
+# OS files
+.DS_Store
+
+# Streamlit cache
+.streamlit/
+
+# Logs
+*.log

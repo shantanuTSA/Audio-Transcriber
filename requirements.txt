@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+openai-whisper
+pydub
+librosa
+noisereduce
+soundfile
+ffmpeg-python
