@@ -1,8 +1,7 @@
-fastapi
-uvicorn
+streamlit
 openai-whisper
 pydub
+numpy
 librosa
 noisereduce
-soundfile
-ffmpeg-python
+audio-recorder-streamlit
